@@ -1,0 +1,81 @@
+input::placeholder {
+    color: rgba(0, 0, 255, 0.5); /* pour afficher le placeholder en grisé */
+} 
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(183, 215, 255);
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+    height: 100vh;
+    width: 800px;
+    margin: 0;
+}
+
+.admin-container {
+    background: rgb(183, 215, 255);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 800px;
+    /* box-sizing: border-box; */
+}
+
+h2 {
+    margin-bottom: 20px;
+    color:darkblue;
+    /* text-align: center; */
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.admin-form input,
+.admin-form textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 600px;
+    box-sizing: border-box;
+    text-align: left;
+    font-size: large;
+}
+
+.admin-form textarea {
+    resize: vertical;
+    height: 100px;
+    font-size: large;
+}
+
+.admin-form ::placeholder {
+    color: rgba(0, 0, 139, 0.5); /* Couleur pour les navigateurs modernes */
+}
+
+.admin-form button {
+    padding: 10px;
+    background: #007BFF;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.admin-form button:hover {
+    background: #0056b3;
+}
+
+.message-couv {
+    font-size:small;
+    color: rgba(0, 0, 255, 0.5);
+
+}
+
+#image {
+    padding-left: 0px;
+
+}

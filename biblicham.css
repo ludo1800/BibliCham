@@ -1,0 +1,246 @@
+input::placeholder {
+    color: rgba(30, 144, 255, 0.6); /* pour afficher le placeholder en grisé */
+  } 
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(183, 215, 255); /* couleur de fond de la page entière */
+    display: flex;
+    margin: 0;
+    min-height: 100vh; /* Occupera au moins toute la hauteur de la fenêtre */
+    margin-bottom: 10px;
+    padding: 0;
+    flex-direction: column;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(132,164,202); /* couleur de fond du header */
+    padding: 10px 20px;
+    flex-flow: wrap; /* Empêche le header de se rétrécir */
+  }
+  
+  .nav_header {
+    display:flex;
+    gap:25px; /* Espace entre les 3 items soulignés de droite */
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo p {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .option1 {
+    background-color:rgb(30,144,255);
+    cursor: pointer;
+    padding-left: 0.75rem;
+  }
+  
+  .search {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .search input {
+    padding: 0.5rem;
+    cursor:text;
+    /* border: 1px solid rgb(30,144,255); */
+    /* border-radius: 4px; */
+    /* margin-right: 10px; */
+    width:275px; /* taille de la fenetre d'input de recherche */
+  }
+  
+  .dropdown {
+    position: relative;
+  }
+  
+  /* .dropdown button { */
+    /* padding: 8px; */
+    /* border: 5px solid rgb(30,144,255); */
+    /* border-radius: 4px; */
+    /* background-color:red; */
+    /* cursor: pointer; */
+  /* } */
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgb(30,144,255);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: red;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color:lightblue;
+  }
+  
+  /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  
+  form {
+    display: flex;
+  }
+  
+  /* select, input { */
+    /* margin-right: 10px; /* Espace entre les cases du header au milieu */
+  /* }  */
+  
+  /* button { */
+    /* margin-left: 10px; /* Marge à gauche du bouton */
+  /* } */
+  
+  /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  
+  
+  .shelve {
+    display: flex;
+    gap: 20px; /* espace entre les livres horizontalement */
+    flex-wrap: wrap;
+    margin-top:15px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .book {
+    position: relative;
+    display: inline-block; /* Assurez-vous que le bloc s'adapte à la taille de l'image */
+  
+    /* width: 200px; */
+    height: 300px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  
+        /* Vos styles pour le bloc de livre ici */
+        /* border: 1px solid blue; */
+        /* padding: 10px; */
+        /* margin-bottom: 20px; */
+  } 
+  
+  .warning {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0; /* Texte initialement caché */
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: rgba(255, 0, 0, 0.8); /* dernier terme : opacité du bandeau */
+    padding: 30px 30px;
+    /* border: 5px solid rgb(208, 255, 0); */
+    border-radius: 8px;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1 /* Message "Non disponible directement", sans c'est juste au survol */
+  }
+  
+  .book:hover .warning {
+    /* visibility: visible; Afficher l'avertissement au survol */
+    opacity: 1;
+  }
+  
+  .book img {
+    max-width:200px ; /* largeur des couvertures */
+    max-height: 300px; /* hauteur des couvertures */
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Ajoute une ombre */
+    /*transition: box-shadow 3.3s; /* Transition pour l'effet d'ombre */
+    width: auto;
+    height: auto;
+  }
+  
+  .book:hover {
+    transform: scale(1.03);
+    box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.5); /* Ombre plus prononcée au survol */
+  }
+  
+  .summary { /* infos livre */
+    font-size: .65rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    max-height: 95%;
+    overflow: auto;
+    background-color: rgba(1,41, 55, 0.75); /* opacité et couleur de la boite */
+    color:lightskyblue;
+    padding: 0 10px 0 10px;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2; /* Assure que le résumé soit au-dessus du livre ouvert */
+  }
+  
+  .book.open {
+    transform-origin: left center;
+    transform: perspective(1000px) rotateY(-20deg) scale(1.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    transition: transform 0.99s ease;
+  }
+  
+  .book.open .summary {
+    opacity: 0.5;
+  }
+  
+  /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  
+  .image-button {
+    /* Définir la largeur et la hauteur du bouton */
+    display: flex;
+    /* background-color: #123559; */
+    /* width: 50px; */
+    /* height: 50px; */
+    align-items: center;
+    padding:0;
+    border:0.8px solid rgb(30,144,255);
+    
+    
+    /* Ajouter une image de fond */
+    /* background-image: url('loupe-bleue.png'); */
+    
+    /* Centrer et aligner le texte à l'intérieur du bouton */
+    text-align: center;
+    line-height: 50px; /* La même hauteur que celle du bouton pour centrer verticalement
+    
+    /* Style supplémentaire pour le bouton */
+    /* border: none; */
+    /* color: white; */
+    /* font-size: 16px; */
+    cursor:pointer;
+    
+    /* Effet lorsque survolé */
+    transition: transform 0.2s;
+  }
+  
+  /* Effet de survol pour agrandir légèrement le bouton */
+  .image-button:hover {
+    transform: scale(1.1);
+  }
+  
+  .underline {
+    text-decoration: underline;
+    text-decoration:dashed;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    color: darkblue;
+    cursor: pointer;
+  }
