@@ -6,7 +6,7 @@
     <title>Page protégée</title>
 </head>
 <body>
-    <h1>Bienvenue, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
+    <h1>Bienvenue, <?php echo htmlspecialchars($_SESSION['utilisateur']); ?> !</h1>
     <p>Vous êtes connecté avec succès.</p>
 </body>
 </html>
@@ -15,8 +15,8 @@
 session_start();
 
 // Vérifier si l'utilisateur est authentifié
-if (!isset($_SESSION['username'])) {
-    header("Location: login.html"); // Rediriger vers la page de connexion si non authentifié
+if (!isset($_SESSION['utilisateur'])) {
+    header("Location: login.php"); // Rediriger vers la page de connexion si non authentifié
     exit();
 }
 ?>

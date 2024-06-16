@@ -1,0 +1,39 @@
+input::placeholder {
+    color: rgba(30, 144, 255, 0.8); /* pour afficher le placeholder en grisé */
+} 
+
+body {
+    font-family: Arial, sans-serif;
+    color: rgb(30, 144, 255);
+    background-color: rgb(183, 215, 255);
+    text-decoration: none;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    width: 150px;
+    margin-right: 10px;
+    text-align: right;
+}
+
+.form-group input,
+.form-group textarea {
+    flex-grow: 1;
+}
+
+.form-group textarea {
+    height: 100px;
+}

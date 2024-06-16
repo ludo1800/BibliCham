@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="db_first.css" />
+    <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="livres.jpg" /> <!-- favicon -->
-    <script defer src="db_first.js"></script>
+    <!-- <script defer src="db_first.js"></script> -->
     <title>DB Livres</title>
+
 </head>
 
 <?php
@@ -156,7 +157,15 @@ $conn->close();
 ?>
 
 <!-- Bouton pour lancer BibliCham.php -->
-<button id="site_biblicham" target="_blank">Accès au site BibliCham</button>
+<!-- <button id="site_biblicham" target="_blank">Accès au site <B>BibliCham</B></button> <!-- Nouvelle fenêtre -->
+<button class="btn-primary" id="site_biblicham">Accès au site <B>BibliCham</B></button> <!-- Même fenêtre -->
 
-
+<script>
+    document.getElementById("site_biblicham").addEventListener("click", function() {
+        window.open("biblicham.php"); // Même fenêtre
+        //window.open("biblicham.php", "_blank"); // Nouvelle fenêtre
+    });
+    </script>
+</body>
+</html>
 

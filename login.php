@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
+    <link rel="stylesheet" href="style.css" />
+    <title>Connexion au compte utilisateur</title>
 </head>
 <body>
     <h2>Connexion</h2>
-    <form id="loginForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <label for="username">Nom d'utilisateur:</label><br>
-        <input type="text" id="username" name="username" value=""><br><br>
-        <label for="password">Mot de passe:</label><br>
-        <input type="password" id="password" name="password"><br><br>
-        <input type="submit" value="Se connecter">
+    <form id="loginForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> <!-- sécuriser et afficher le chemin du script en cours d'exécution -->
+        <label for="utilisateur">Nom d'utilisateur:</label><br>
+        <input type="text" id="utilisateur" name="utilisateur" placeholder="Nom d'utilisateur…" value=""><br><br>
+        <label for="mot_de_passe">Mot de passe:</label><br>
+        <input type="password" id="mot_de_passe" name="mot_de_passe" placeholder="Mot de passe…"><br><br>
+        <input type="submit" value="Se connecter" class="btn-primary">
     </form>
 
     <?php
@@ -20,7 +21,7 @@
         $servername = "localhost";
         $username = "root";
         $password = "";
-        $dbname = "clients";
+        $dbname = "biblicham";
 
         $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -28,8 +29,8 @@
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $username = $_POST['utilisateur'];
+        $password = $_POST['mot_de_passe'];
 
         // Utilisation de requêtes préparées
         $stmt = $conn->prepare("SELECT * FROM users WHERE username=? AND password=?");
@@ -42,14 +43,19 @@
             $role = $row['role'];
 
             if ($role == 'admin') {
+                session_start();
+                $_SESSION['admin'] = true;
                 header('Location: admin.php');
                 exit();
             } elseif ($role == 'user') {
+                session_start();
+                $_SESSION['user'] = true;
                 header('Location: user.php');
                 exit();
             }
         } else {
-            header('Location: bad_user.php');
+            header('Location: login.php');
+            echo "Nom d'utilisateur ou mot de passe incorrect";
             exit();
         }
 

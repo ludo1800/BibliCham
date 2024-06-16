@@ -1,0 +1,1 @@
+pour pouvoir préremplir les champs dans mon formulaire de livre si un livre existe deja, il faut que je fasse une connection PDO et que je requete si ID passer en get existe en base. Peux tu me proposer une solution ? 

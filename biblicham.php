@@ -9,11 +9,12 @@
     <title>BibliCham</title>
     
 </head>
+
 <body>
 <div class="header">
 
     <div class="logo">
-        <a href="contact.html" target="_blank">
+        <a href="contact.html">
             <img src="logo.jpg" alt="logo BibliCham">
         </a>
     </div>
@@ -34,7 +35,7 @@
     </div>
 
     <div class="nav_header">
-        <a href="login.php" class="underline" target="_blank">Connexion</a> <!-- Lien vers la page de connexion comptes -->
+        <a href="login.php" class="underline">Connexion</a> <!-- Lien vers la page de connexion comptes -->
         <a href="travaux.html" class="underline">Chèque cadeaux</>
         <a href="travaux.html" class="underline">Panier</a>
     </div>
@@ -113,7 +114,8 @@ while ($livre = $request->fetch(PDO::FETCH_ASSOC)) {
 
 echo "</div>"; // class shelve
 ?>
-<script>
+
+<script> // Modification du choix du menu déroulant
         document.addEventListener('DOMContentLoaded', function() {
             var selectElement = document.getElementById('choix');
             selectElement.addEventListener('change', function() {

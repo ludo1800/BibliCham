@@ -26,6 +26,11 @@ input::placeholder {
     display:flex;
     gap:25px; /* Espace entre les 3 items soulignés de droite */
   }
+
+  .nav_header:hover {
+    background-color: var(--clr-primary-400);
+  }
+  
   
   .logo {
     display: flex;
@@ -42,6 +47,7 @@ input::placeholder {
     background-color:rgb(30,144,255);
     cursor: pointer;
     padding-left: 0.75rem;
+    border: 1px solid rgb(30, 144, 255);
   }
   
   .search {
@@ -54,7 +60,7 @@ input::placeholder {
   .search input {
     padding: 0.5rem;
     cursor:text;
-    /* border: 1px solid rgb(30,144,255); */
+    border: 1px solid rgb(30,144,255);
     /* border-radius: 4px; */
     /* margin-right: 10px; */
     width:275px; /* taille de la fenetre d'input de recherche */
@@ -244,3 +250,19 @@ input::placeholder {
     color: darkblue;
     cursor: pointer;
   }
+
+  /* ----------------------------------------------------------------------------------------------------*/
+
+  /* login.css */
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(183, 215, 255);
+    text-decoration: none;
+}
+
+button {
+    background-color:rgb(30, 144, 255);
+    color: white;
+    padding: 10px;
+}

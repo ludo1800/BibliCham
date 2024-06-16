@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="admin.png" /> <!-- favicon -->
-    <title>Admin - Ajouter un Livre - Injection Données</title>
-    <link rel="stylesheet" href="add_book.css">
-</head>
 
 <?php
 session_start();
-if (!isset($_SESSION['admin_logged_in'])) {
-    header("Location: add_book.php");
-    exit();
+if (!isset($_SESSION['admin'])) {
+    header("Location: login.php");
+    exit;
 }
 
 $servername = "localhost";
@@ -21,43 +12,73 @@ $password = "";
 $dbname = "bibliCham";
 
 try {
-    $database = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $titre = $_POST['titre'];
-        $auteur = $_POST['auteur'];
-        $date_parution = $_POST['date_parution'];
-        $isbn = $_POST['isbn'];
-        $description = $_POST['description'];
-        $prix = $_POST['prix'];
-        $stock = $_POST['stock'];
-        $image = $_POST['image'];
-
-        $sql = "INSERT INTO livres (titre, auteur, date_parution, isbn, description, prix, stock, image) 
-                VALUES (:titre, :auteur, :date_parution, :isbn, :description, :prix, :stock, :image)";
-        $stmt = $database->prepare($sql);
-        $stmt->bindParam(':titre', $titre);
-        $stmt->bindParam(':auteur', $auteur);
-        $stmt->bindParam(':date_parution', $date_parution);
-        $stmt->bindParam(':isbn', $isbn);
-        $stmt->bindParam(':description', $description);
-        $stmt->bindParam(':prix', $prix);
-        $stmt->bindParam(':stock', $stock);
-        $stmt->bindParam(':image', $image);
-
-        $stmt->execute();
-        echo "Livre ajouté avec succès !<br><br>";
-        echo "<p></p>";
-        echo "<a href='admin_dashboard.php'><em>Ajouter un autre livre</em></a><br><br>";
-        echo "<a href='biblicham.php'><em>Mise à jour page principale</em></a><br>";
-        
-        
-
-    }
 } catch (PDOException $e) {
-    echo "Erreur : " . $e->getMessage();
+    die("Erreur de connexion à la base de données : " . $e->getMessage());
 }
 
-$database = null;
+$book = [
+    'titre' => '',
+    'auteur' => '',
+    'date_parution' => '',
+    'isbn' => '',
+    'description' => '',
+    'prix' => '',
+    'stock' => '',
+    ];
+
+if (isset($_GET['numero'])) {
+    $id = $_GET['numero'];
+    $stmt = $pdo->prepare("SELECT * FROM livres WHERE numero = :numero");
+    $stmt->bindParam(':numero', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $book = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (!$book) {
+        die("Livre non trouvé.");
+    }
+}
+
+// var_dump($book);
 ?>
+
+<?php 
+$title = "Ajouter un livre";
+include "./components/header.php" 
+?>
+
+<?php if (isset($_GET["numero"])) :?>
+    <h1>Modifier un livre</h1>
+    <?php else :?>
+    <h1>Ajouter un livre</h1>
+    <?php endif ?>
+<form method="post" action="process_form.php" class="admin-form" enctype="multipart/form-data">
+            <?php if (isset($_GET["numero"])) :?>
+                <input type="hidden" id="numero" name="numero"  value="<?php echo $_GET['numero'] ?>">
+            <?php endif ?>
+            <input type="text" id="titre" name="titre" placeholder="Titre…" value="<?php echo htmlspecialchars($book['titre']); ?>" required>
+            <input type="text" id="auteur" name="auteur" placeholder="Auteur…" value="<?php echo htmlspecialchars($book['auteur']); ?>" required>
+            <input type="number" id="date_parution" name="date_parution" value="<?php echo htmlspecialchars($book['date_parution']); ?>" placeholder="Année de Parution…" required>
+            <input type="text" id="isbn" name="isbn" placeholder="ISBN…" value="<?php echo htmlspecialchars($book['isbn']); ?>" required>
+            <textarea class="col-span" rows="5" id="description" name="description" placeholder="Résumé / 4ème de couverture…" r><?php echo htmlspecialchars($book['description']); ?></textarea>
+            <input type="number" id="prix" name="prix" value="<?php echo htmlspecialchars($book['prix']); ?>" placeholder="Prix…" step="0.01" required>
+            <input type="number" id="stock" name="stock" value="<?php echo htmlspecialchars($book['stock']); ?>" placeholder="Stock…" required>
+
+
+            <!-- <label for="file-upload" class="custom-file-upload">
+            </label>
+            <input id="file-upload" type="file" /> -->
+            
+            <!-- <label for="file-upload">Nom du fichier image…</label> -->
+            <input type="file" id="image" name="image" class="col-span"  required placeholder="Nom du fichier image…">
+
+            <!-- <input type="file" id="image" name="image" required><p></p> -->
+            <div class="message-couv" style="color: rgb(30, 144, 255);">(Image de couverture normalement présente dans le répertoire 'couvertures\' en format jpeg et 600px min de large)<br><br></div>
+            
+            
+            <div class="button-container">
+                <button type="submit" class="btn-primary">Modifier le <b><u>livre</u></b></button>
+            </div>
+        </form>
+<?php include "./components/footer.php" ?>

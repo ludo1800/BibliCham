@@ -1,0 +1,12 @@
+{
+  "name": "bibliotheque",
+  "version": "1.0.0",
+  "description": "",
+  "main": "admin.js",
+  "scripts": {
+    "sass": "sass --watch ./assets/scss/index.scss:./style.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
